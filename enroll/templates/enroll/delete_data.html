@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<!-- Information about the page -->
+	<!--This is the comment tag-->
+	
+	<title>Update Data</title>
+</head>
+
+<body>
+	<!--Contents of the webpage-->
+    <h1>Delete Student {{id}}</h1>
+    <form action="" method="POST">
+        {% csrf_token %}
+        {{fm.as_p}}
+        <input type="submit" value="Delete">
+        
+</body>
+
+</html>

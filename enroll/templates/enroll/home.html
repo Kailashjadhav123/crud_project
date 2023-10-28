@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<!-- Information about the page -->
+	<!--This is the comment tag-->
+	
+	<title>Home Page</title>
+</head>
+
+<body>
+	<!--Contents of the webpage-->
+    <h1>This Is Home Page</h1>
+	<h1>This is from my page</h1>
+	<a href="add_student">Add Student</a>
+	<div>
+		<table>
+			<tr>
+				<th>Sr No</th>
+				<th>First Name</th>
+				<th>Last Name</th>
+				<th>Age</th>
+				<th>City</th>
+				<th>Mobile</th>
+				<th>Action</th>
+			</tr>
+			<tr>
+				{% for st in st %}
+				<tr></tr>
+					<td>{{st.id}}</td>		
+					<td>{{st.firstname}}</td>
+					<td>{{st.lastname}}</td>
+					<td>{{st.age}}</td>
+					<td>{{st.city}}</td>
+					<td>{{st.mobile}}</td>
+					<td><a href="{% url 'updatedata' st.id %}"> Edit</a>
+						<form action="{% url 'deletedata' st.id %}" method="POST">
+							{% csrf_token %}
+							{{fm.as_p}}
+						<input type="submit" value="Delete"></td>
+			{% endfor %}
+			<br>	
+			</tr>
+		</table>
+		{{a}}
+
+
+		{% comment %} <table>
+			<tr>
+				<th>Sr No</th>
+				<th>First Name</th>
+				<th>Last Name</th>
+				<th>Age</th>
+				<th>City</th>
+				<th>Mobile</th>
+				<th>Action</th>
+			</tr>
+			<hr>
+			{% for st in st %}
+			<td>	
+					<td>{{st.id}}</td>		
+					<td>{{st.firstname}}</td>
+					<td>{{st.lastname}}</td>
+					<td>{{st.age}}</td>
+					<td>{{st.city}}</td>
+					<td>{{st.mobile}}</td>
+					<td><a href="{% url 'updatedata' st.id %}"> Edit</a>
+						<form action="{% url 'deletedata' st.id %}" method="POST">
+							{% csrf_token %}
+							{{fm.as_p}}
+						<input type="submit" value="Delete"></td>
+			</td>
+			{% endfor %}
+		</table>	
+		<hr>
+		 {% endcomment %}
+	</div>
+</body>
+
+</html>
