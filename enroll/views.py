@@ -1,5 +1,5 @@
 from django.template import loader
-from django.shortcuts import render, HttpResponseRedirect, HttpResponse
+from django.shortcuts import redirect, render, HttpResponseRedirect, HttpResponse
 from .models import Student
 from .forms import Add_student
 import datetime
@@ -10,11 +10,10 @@ from django.views.decorators.http import require_http_methods
 
 
 def home(request):
-    st = Student.objects.all().order_by('id').values()
-    a = datetime.datetime.now()
-    context = {'st' : st, 'a':a}
+    st = Student.objects.all().order_by('id')
+    context = {'st' : st}
     # return render(request, 'enroll/home.html', context)
-    template = loader.get_template('enroll/home.html')
+    template = loader.get_template('enroll/home.html')          # we can use get_template() instead of render()
     return HttpResponse(template.render(context))
 
 
@@ -36,6 +35,7 @@ def update_data(request, id):
         fm = Add_student(request.POST, instance=pi)
         if fm.is_valid():
             fm.save()
+            return redirect ('/')
     else:
         pi = Student.objects.get(pk=id)
         fm=Add_student(instance=pi)
@@ -47,22 +47,5 @@ def delete_data(request, id):
     if request.method=="POST":
         pi = Student.objects.get(pk=id)
         pi.delete()
+        return HttpResponse("Deleted Successfully !!")
     return HttpResponseRedirect('')
-
-
-
-def members(request):
-  mymembers = Employee.objects.all().values()
-  template = loader.get_template('all_members.html')
-  context = {
-    'mymembers': mymembers,
-  }
-  return HttpResponse(template.render(context, request))
-  
-def details(request, id):
-  mymember = Member.objects.get(id=id)
-  template = loader.get_template('details.html')
-  context = {
-    'mymember': mymember,
-  }
-  return HttpResponse(template.render(context, request))
